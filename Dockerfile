@@ -1,6 +1,10 @@
-FROM alpine:3.7
+FROM alpine:3.8
+
+EXPOSE 8080
+
+ENV REMOTE=https://www.google.com:443/ IGNORE=true
+
 RUN apk add --no-cache ca-certificates
 COPY striptls /
-ENV REMOTE=https://www.google.com:443/
-EXPOSE 8080
-ENTRYPOINT /striptls -r=$REMOTE -l=:8080
+
+CMD /striptls -l=:8080 -r=$REMOTE -i=$IGNORE
